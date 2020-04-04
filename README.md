@@ -4,7 +4,9 @@
 
 <hr>
 
-## Setup 
+## Setup Github & Travis
+
+you configure Travis to perform continuous integration testing.
 
 - $ pip3 install django==1.11.24
 
