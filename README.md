@@ -40,6 +40,56 @@ you configure Travis to perform continuous integration testing.
         - SECRET_KEY="whatever" python manage.py test
 
 
+## Django - Directories
+
+This directory structure will serve your templates, media files and static files when your project is run locally or deployed to a live site.
+
+
+- $ python3 manage.py startapp posts
+
+    - Inside posts app/folder:
+
+            - Create templates folder
+
+
+- Create these folders:
+
+    static:
+
+            css
+            img
+            js
+
+- Create this folder:
+
+    media:
+
+            img
+
+- blog folder:
+
+        settings.py:
+
+                INSTALLED_APPS = [
+                    'posts'
+                ]
+
+                 TEMPLATES = [
+                    
+                 Edit this: 'DIRS': [os.path.join(BASE_DIR, 'templates')],
+                    
+                 Add this:  'django.template.context_processors.media',
+
+                ]
+
+
+                STATIC_URL = '/static/'
+                STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+
+                MEDIA_URL = '/media/'
+                MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 <hr>
 
 [![Build Status](https://travis-ci.org/Novicetheaf/django-blog.svg?branch=master)](https://travis-ci.org/Novicetheaf/django-blog)
