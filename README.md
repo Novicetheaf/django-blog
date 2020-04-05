@@ -90,6 +90,69 @@ This directory structure will serve your templates, media files and static files
                 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+## Create Your Data Models And Forms
+
+You create your Post model in models.py and you create your BlogPostForm in forms.py.
+
+- Models.py:
+
+    - import: 
+            from django.db import models
+            from django.utils import timezone
+
+    - Add class:
+
+            class Post(models.Model):
+                """
+                A single blog post
+                """
+                title = models.CharField(max_length=200)
+                content = models.TextField()
+                created_date = models.DateTimeField(auto_now_add=True)
+                published_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
+                views = models.IntegerField(default=0)
+                tag = models.CharField(max_length=30, blank=True, null=True)
+                image = models.ImageField(upload_to="img", blank=True, null=True)
+
+                def __unicode__(self):
+                    return self.title
+
+
+- Create file forms.py in posts folder
+
+        forms.py:
+
+                from django import forms
+                from .models import Post
+
+                class BlogPostForm(forms.ModelForm):
+                    class Meta:
+                        model = Post
+                        fields = ('title', 'content', 'image', 'tag', 'published_date')
+
+
+- admin.py in posts folder
+
+        from django.contrib import admin
+        from models import Post
+
+        admin.site.register(Post)
+
+
+- Cli commands:
+
+       $ pip3 install pillow
+
+       $ pip3 freeze > requirements.txt
+
+       $ python3 manage.py makemigrations
+
+## Create your views
+
+ Creating the get_posts and create_or_edit_post in the views.py file of our posts app.
+
+
+
 <hr>
 
 [![Build Status](https://travis-ci.org/Novicetheaf/django-blog.svg?branch=master)](https://travis-ci.org/Novicetheaf/django-blog)
