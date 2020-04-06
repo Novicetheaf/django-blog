@@ -204,8 +204,36 @@ You create your Post model in models.py and you create your BlogPostForm in form
                         form = BlogPostForm(instance=post)
                     return render(request, 'blogpostform.html', {'form': form})
                     
+## Create Your URLs 
+
+- blog:
+        urls.py:
+
+            import:
+
+                    from django.views.generic import RedirectView
+                    from django.views.static import serve
+                    from .settings import MEDIA_ROOT
 
 
+            urlpatterns = [
+                url(r'^$', RedirectView.as_view(url='posts')),
+                url(r'posts/', include('posts.urls')),
+                url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
+            ]
+
+- posts: Create file urls.py
+
+        urls.py:
+                from django.conf.urls import url
+                from .views import get_posts, post_detail, create_or_edit_post
+
+                urlpatterns = [
+                    url(r'^$', get_posts, name='get_posts'),
+                    url(r'^(?P<pk>\d+)/$', post_detail, name='post_detail'),
+                    url(r'^new/$', create_or_edit_post, name='new_post'),
+                    url(r'^(?P<pk>\d+)/edit/$', create_or_edit_post, name='edit_post')
+                ]
 
 
 <hr>
