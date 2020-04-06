@@ -168,8 +168,7 @@ You create your Post model in models.py and you create your BlogPostForm in form
                     and render them to the 'blogposts.html' template
                     """
 
-                    posts = Post.object.filler(published_date__lte=timezone.now
-                        ()).order_by('-published_date')
+                    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
                     return render(request, "blogposts.html", {'posts': posts})
 
                 def post_detail(request, pk)
@@ -211,9 +210,12 @@ You create your Post model in models.py and you create your BlogPostForm in form
 
             import:
 
+                    from django.conf.urls import url, include
+                    from django.contrib import admin
                     from django.views.generic import RedirectView
                     from django.views.static import serve
                     from .settings import MEDIA_ROOT
+
 
 
             urlpatterns = [
