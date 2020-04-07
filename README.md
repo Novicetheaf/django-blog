@@ -237,6 +237,255 @@ You create your Post model in models.py and you create your BlogPostForm in form
                     url(r'^(?P<pk>\d+)/edit/$', create_or_edit_post, name='edit_post')
                 ]
 
+## Create Your Base Templates And CSS Styles 
+
+It loads all your external CSS and JS links and your HTML code in this file will render your nav bar. Any other HTML files you create (e.g. blogposts.html) are extensions of your base.html file.
+
+You create a base.html and use {% extends 'base.html' %} to render any subsequent html files (e.g. blogposts.html) to the browser.
+
+- create a new folder called 'templates' at the base of your project
+
+    - inside templates create a file called base.html
+
+        base.html:
+                   
+                    {% load static from staticfiles %}
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                        <title>EOC - Blog</title>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css">
+                        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                    </head>
+                    <body>
+                        <!-- Fixed masthead -->
+                            <nav class="navbar navbar-masthead navbar-default navbar-fixed-top">
+                                <div class="container">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                                                aria-expanded="false" aria-controls="navbar">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="{% url 'get_posts' %}"><img src="/media/img/logo.png"></a>
+                                        </div>
+                                    <div id="navbar" class="navbar-collapse collapse">
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li><a href="{% url 'new_post' %}">New Post</a></li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </nav>
+
+                            <div id="masthead">
+                                <div class="container">
+                                    <div class="row">
+                                        <h1> stack
+                                            <p id="logo" class="lead">The Trials of a Bootcamp Developer</p>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <!--blogpost entries-->
+                                                {% block content %}
+                                                {% endblock %}
+                                                <!--blogpost entries-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <footer>
+                                <div class="container">
+                                    <p>Made by Code Institute bootcampers</p>
+                                </div>
+                            </footer>
+                            
+                    </body>
+                    </html>
+                    
+- static folder:
+
+        css:
+
+            -create new file called custom css
+
+- custom.css:
+
+            .navbar-form input, .form-inline input {
+                width: auto;
+            }
+
+            body {
+                font-family: Arial;
+                padding-top: 50px;
+            }
+
+            footer {
+                margin-top: 40px;
+                padding-top: 40px;
+                padding-bottom: 40px;
+                background-color: #ededed;
+            }
+
+            h1, h1 a {
+                color: #555555;
+                text-decoration: none;
+            }
+
+            #masthead {
+                padding-left:10px;
+                min-height: 199px;
+            }
+
+            #masthead h1 {
+                font-size: 55px;
+                line-height: 1;
+                margin-top: 50px;
+            }
+
+            #masthead .well{
+                margin-top: 31px;
+                min-height: 127px;
+            }
+
+            .navbar.affix {
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
+
+            .navbar-brand{
+                padding: 10px 10px;
+            }
+
+            #logo {
+                color: #12AB82;
+            }
+
+            .story-img {
+                margin-top: 25%;
+                display: block;
+            }
+
+            a, a:hover {
+                color: #223344;
+                text-decoration: none;
+            }
+
+            .icon-bar {
+                background-color: #fff;
+            }
+
+            .dropdown-menu {
+                min-width: 250px;
+            }
+
+            .panel {
+                border-color: transparent;
+                border-radius: 0;
+            }
+
+            .thumbnail {
+                margin-bottom: 8px;
+            }
+
+            .img-container {
+                overflow: hidden;
+                height: 170px;
+            }
+
+            .img-container img {
+                min-width: 280px;
+                min-height: 180px;
+                max-width: 380px;
+                max-height: 280px;
+            }
+
+            .img-circle{
+                width:100px;
+                height: 100px; 
+            }
+
+            .img-blogpost{
+                height: 300px;
+                width: auto;
+            }
+
+            .txt-container {
+                overflow: hidden;
+                height: 100px;
+            }
+
+            .panel .lead {
+                overflow: hidden;
+                height: 90px;
+            }
+
+            .label-float {
+                margin: 0 auto;
+                position: absolute;
+                top: 0;
+                z-index: 1;
+                width: 100%;
+                opacity: .9;
+                padding: 6px;
+                color: #fff;
+            }
+
+            .boldtext{
+                font-weight: bold;
+            }
+
+            @media screen and (min-width: 768px) {
+                #masthead h1 {
+                    font-size: 80px;
+                }
+            }
+
+- in posts folder create a template folder: 
+
+    - create blogposts.html:
+
+                    {% extends 'base.html' %}
+                        {% block content %}
+                            {% for post in posts %}
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-3 text-center">
+                                        <a class="story-img" href="#">
+                                            <img src="/media/img/profile.jpg" class="img-circle">
+                                        </a>
+                                        <p><span class="boldtext">Author:</span> Niel</p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-9">
+                                        <h3>{{ post.title }}</h3>
+                                        <div class="row">
+                                            <div class="col-xs-9">
+                                                <p>{{ post.content|truncatewords:30 }}</p>
+                                                <p><a href="{% url 'post_detail' post.id %}"  class="btn btn-default">Read more</a></p>
+                                                <p><span class="boldtext">Published on:</span> {{ post.published_date }} </p>
+                                                <p><span class="boldtext">Views:</span> {{post.views}}</p>
+                                                <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            {% endfor %}
+                        {% endblock %}
 
 <hr>
 
