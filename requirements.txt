@@ -1,3 +1,4 @@
 Django==1.11.24
 Pillow==7.0.0
 pytz==2019.3
+django-forms-bootstrap~=3.1.0
