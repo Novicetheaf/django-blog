@@ -468,7 +468,7 @@ You create a base.html and use {% extends 'base.html' %} to render any subsequen
                                         <a class="story-img" href="#">
                                             <img src="/media/img/profile.jpg" class="img-circle">
                                         </a>
-                                        <p><span class="boldtext">Author:</span> Niel</p>
+                                        <p><span class="boldtext">Author:</span> Ed</p>
                                     </div>
                                     <div class="col-md-10 col-sm-9">
                                         <h3>{{ post.title }}</h3>
@@ -496,7 +496,7 @@ You create a base.html and use {% extends 'base.html' %} to render any subsequen
                         <a class="story-img" href="#">
                             <img src="/media/img/profile.jpg" class="img-circle">
                         </a>
-                        <p><span class="boldtext">Author:</span> Niel</p>
+                        <p><span class="boldtext">Author:</span> Ed</p>
                     </div>
                     <div class="col-sm-10 col-md-9">
                         {% if post.image %}
@@ -517,6 +517,57 @@ You create a base.html and use {% extends 'base.html' %} to render any subsequen
                     </div>
                 </div>
             {% endblock %}
+
+- Cli command for django bootstrap forms library: 
+
+- allows us to render a form easily.
+
+    $ pip3 install django-forms-bootstrap
+
+
+- Now go to blog folder:
+    
+    - settings.py update:
+
+                INSTALLED_APPS = [
+                    'django.contrib.admin',
+                    'django.contrib.auth',
+                    'django.contrib.contenttypes',
+                    'django.contrib.sessions',
+                    'django.contrib.messages',
+                    'django.contrib.staticfiles',
+                    'django_forms_bootstrap',
+                    'posts',
+                ]
+
+- Now in posts app/folder:
+
+    - templates folder:
+
+        - create blogpostform.html:
+
+                    {% extends "base.html" %}
+                    {% load bootstrap_tags %}
+                    {% block content %}
+                        <h1>New Post</h1>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form | as_bootstrap }}
+                            <button type="submit" class="btn btn-info">Save</button>
+                        </form>
+                    {% endblock %}
+
+- cli command:
+
+        $ python3 manage.py createsuperuser
+
+    - now set name for user, email, password etc.
+    
+
+## Create A Heroku App 
+
+
+
 
 <hr>
 
